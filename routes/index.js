@@ -6,5 +6,7 @@ console.log("Routes Loaded");
 
 Router.get('/', homeController.home);
 Router.get('/aboutus', homeController.aboutUs);
-Router.get('/users',require('./users'));
+Router.get('/users/',require('./users'));
+Router.get('/posts/',require('./posts'));
+
 module.exports = Router;
