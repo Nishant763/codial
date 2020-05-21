@@ -3,5 +3,7 @@ module.exports.users = function(req,res){
 }
 
 module.exports.login = function(req,res){
-    return res.send('<h2>User logged in successfully</h2>');
+    return res.render('login',{
+        title:"Your Name",
+    })
 }

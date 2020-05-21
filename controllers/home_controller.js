@@ -1,5 +1,7 @@
 module.exports.home = function(req,res){
-    return res.send('<h1>elcome to my first Major project MEN stack</h1>');
+    return res.render('home',{
+        title:"Home Page",
+    });
 }
 
 module.exports.aboutUs = function(req,res){
