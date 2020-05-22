@@ -8,8 +8,14 @@ const expressLayouts = require('express-ejs-layouts');
 app.use(express.static('./assets'));
 app.use(expressLayouts);
 
+
+
 //use express router
 app.use('/',require('./routes'));
+
+//extract styles and scripts from sub pages into layouts
+app.set('layout extractStyles',true);
+app.set('layout extractScripts',true);
 
 //set up the view engine
 app.set('view engine','ejs');
