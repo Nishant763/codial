@@ -1,4 +1,6 @@
 const user = require('../models/user');
+
+//Render the profile page
 module.exports.profile = function(req, res){
     return res.render('user_profile', {
         title: 'User Profile'
@@ -12,6 +14,7 @@ module.exports.login = function(req,res){
     })
 }
 
+//post controller for log in
 module.exports.create_session = function(req,res){
     user.findOne({
         email : req.body.email,
