@@ -1,14 +1,17 @@
 <link rel="stylesheet" href="/css/form.css">
 
-<form method="POST" action="/users/signupS">
-    <div id="username">
-    <label for="username">UserName:</label>
-    <input type="text" required name="username"><br>
-    </div>
-    <div id="password">
-    <label form="password">Password:</label>
-    <input type="password" required name="password">
-    </div>    
+<h2>Sign Up</h2>
+<form method="POST" action="/users/create">
+    
+    
+    <input type="text" required name="username" placeholder="Your Name:">
+    
+    <input type="email" name="email" placeholder="Your Email:" required>
+    
+    <input type="password" required name="password" placeholder="Your password:">
+
+    <input type="password" required name="confirmpassword" placeholder="Re-enter your password:">
+        
     <button type="submit">Submit</button>
 
 

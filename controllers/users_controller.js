@@ -5,15 +5,16 @@ module.exports.profile = function(req, res){
     })
 }
 
+//Render the log in page
 module.exports.login = function(req,res){
     return res.render('log_in',{
-        title: 'Log In'
+        title: 'Codial || Log In'
     })
 }
 
-module.exports.loginS = function(req,res){
+module.exports.create_session = function(req,res){
     user.findOne({
-        email : req.body.username,
+        email : req.body.email,
         password: req.body.password
     }, function(err,doc){
         if(err){
@@ -29,17 +30,25 @@ module.exports.loginS = function(req,res){
     })
 }
 
+//Render the sign up page
 module.exports.signup = function(req,res){
     
     return res.render('sign_up',{
-        title:'Sign Up'
+        title:'Codial || Sign Up'
     })
 }
 
-module.exports.signupS = function(req,res){
-    user.create({
-        email: req.body.username,
-        password : req.body.password
-    })
-    return res.send("<h3>Successfully Signed Up!!!</h3>");
+//Post controller for sign up
+module.exports.create = function(req,res){
+    console.log(req.body);
+    if(req.body.password == req.body.confirmpassword){
+        user.create({
+            email: req.body.email,
+            password : req.body.password,
+            username : req.body.username
+        })
+        return res.send("<h3>Successfully Signed Up!!!</h3>");
+    }
+    else
+    return res.send("<h3>Your passwords do not match</h3>");
 }
