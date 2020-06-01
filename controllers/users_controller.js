@@ -13,15 +13,15 @@ module.exports.login = function(req,res){
 
 module.exports.loginS = function(req,res){
     user.findOne({
-        username : req.body.username,
+        email : req.body.username,
         password: req.body.password
     }, function(err,doc){
         if(err){
-            res.render("<h3>LogIn failed!!!</h3>");
+            res.send("<h3>LogIn failed!!!</h3>");
             return;
         }
         else{
-            res.render("<h3>LogIn Successfull</h3>");
+            res.send("<h3>LogIn Successfull</h3>");
         }
     })
 }
@@ -35,8 +35,8 @@ module.exports.signup = function(req,res){
 
 module.exports.signupS = function(req,res){
     user.create({
-        email: req.body.email,
+        email: req.body.username,
         password : req.body.password
     })
-    return res.render("<h3>Successfully Signed Up!!!</h3>");
+    return res.send("<h3>Successfully Signed Up!!!</h3>");
 }
