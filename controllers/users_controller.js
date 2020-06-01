@@ -20,8 +20,11 @@ module.exports.loginS = function(req,res){
             res.send("<h3>LogIn failed!!!</h3>");
             return;
         }
-        else{
+        if(doc!=null)
             res.send("<h3>LogIn Successfull</h3>");
+        
+        else {
+            res.send("<h3>LogIn failed!!!</h3>");
         }
     })
 }
