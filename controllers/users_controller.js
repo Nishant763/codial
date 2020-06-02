@@ -16,21 +16,34 @@ module.exports.login = function (req, res) {
 
 //post controller for log in
 module.exports.create_session = function (req, res) {
-    user.findOne({
-        email: req.body.email,
-        password: req.body.password
-    }, function (err, doc) {
-        if (err) {
-            res.send("<h3>LogIn failed!!!</h3>");
-            return;
-        }
-        if (doc != null)
-            res.send("<h3>LogIn Successfull</h3>");
+    //steps to authenticate
+    //find the user
+    user.findOne({email: req.body.email}, function(err,User){
 
-        else {
-            res.send("<h3>LogIn failed!!!</h3>");
-        }
+        if (err) { console.log('error in finding user in signing up'); return; }
+
+        //handle the user if found
+        if(User){
+             //handle password which don't match
+             if(User.password != req.body.password){
+                 return res.redirect('back');
+             }
+
+             //handle session creation
+             res.cookie('user_id',User._id);
+             return res.redirect('/users/profile');
+         }
+         else{
+             //handle user not found
+             return res.redirect('back');
+         }
+
     })
+
+    
+
+   
+    
 }
 
 //Render the sign up page
