@@ -28,6 +28,13 @@ module.exports.login = function (req, res) {
     })
 }
 
+//post controller for log out
+module.exports.logout = function(req,res){
+    res.cookie('user_id',null);
+    return res.redirect('/users/log-in');
+
+}
+
 //post controller for log in
 module.exports.create_session = function (req, res) {
     //steps to authenticate
