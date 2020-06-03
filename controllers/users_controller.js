@@ -16,21 +16,7 @@ module.exports.login = function (req, res) {
 
 //post controller for log in
 module.exports.create_session = function (req, res) {
-    user.findOne({
-        email: req.body.email,
-        password: req.body.password
-    }, function (err, doc) {
-        if (err) {
-            res.send("<h3>LogIn failed!!!</h3>");
-            return;
-        }
-        if (doc != null)
-            res.send("<h3>LogIn Successfull</h3>");
-
-        else {
-            res.send("<h3>LogIn failed!!!</h3>");
-        }
-    })
+    // To do later
 }
 
 //Render the sign up page
