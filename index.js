@@ -1,5 +1,5 @@
 //Divided the project into routes,controllers,models,config so that it is easily scalable.
-
+//To Do: store the session-cookie using MongoStore,log-in page shouldn't be accessible after loging in
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const app = express();
@@ -46,7 +46,7 @@ app.use( session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-
+app.use(passport.setAuthenticatedUser);
 
 //use express router
 app.use('/',require('./routes'));
