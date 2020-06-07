@@ -17,6 +17,7 @@ module.exports.login = function (req, res) {
 //post controller for log in
 module.exports.create_session = function (req, res) {
     // To do later
+    return res.redirect('/');
 }
 
 //Render the sign up page
