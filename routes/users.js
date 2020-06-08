@@ -7,7 +7,7 @@ const usersController = require('../controllers/users_controller');
 router.get('/profile',passport.checkAuthentication,usersController.profile);
 
 router.get('/log-in',usersController.login);
-
+router.get('/log-out',usersController.destroySession);
 
 router.get('/sign-up',usersController.signup);
 router.post('/create',usersController.create);
