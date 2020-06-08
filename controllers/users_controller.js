@@ -9,6 +9,9 @@ module.exports.profile = function (req, res) {
 
 //Render the log in page
 module.exports.login = function (req, res) {
+    if(req.isAuthenticated()){
+       return res.redirect('/users/profile');
+    }
     return res.render('log_in', {
         title: 'Codial || Log In'
     })
@@ -22,6 +25,9 @@ module.exports.create_session = function (req, res) {
 
 //Render the sign up page
 module.exports.signup = function (req, res) {
+    if(req.isAuthenticated()){
+        return res.redirect('/users/profile');
+    }
 
     return res.render('sign_up', {
         title: 'Codial || Sign Up'

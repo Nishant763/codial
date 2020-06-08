@@ -1,6 +1,7 @@
 //Divided the project into routes,controllers,models,config so that it is easily scalable.
 //To Do: store the session-cookie using MongoStore,log-in page shouldn't be accessible after loging in
 const express = require('express');
+// const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const app = express();
 const port = 8000;
@@ -8,6 +9,7 @@ const expressLayouts = require('express-ejs-layouts');
 const db = require('./config/mongoose');
 //used for session cookie
 const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
 const passport = require('passport');
 const passportLocal = require('./config/passport-local-strategy');
 
@@ -31,16 +33,25 @@ app.set('layout extractScripts',true);
 app.set('view engine','ejs');
 app.set('views','./views');
 
-
+// mongo store is used to store the session cookie in the db
 app.use( session({
     name:'codial',
     //TODO change the secret before deployment in production mode
     secret:'blahblahblah',
     saveUninitialized: false,
     resave: false,
+    store: new MongoStore({
+                            mongooseConnection: db,
+                            autoRemove: 'disabled'
+                          },
+                          function(err){
+                              console.log(err || "connect-mongodb setup ok");
+                          }
+    ),
     cookie: {
         maxAge: (1000 * 60 * 1000000)
     }
+    
 }))
 
 app.use(passport.initialize());
