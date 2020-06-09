@@ -1,5 +1,5 @@
 //Divided the project into routes,controllers,models,config so that it is easily scalable.
-//To Do: store the session-cookie using MongoStore,log-in page shouldn't be accessible after loging in
+//Done: store the session-cookie using MongoStore,log-in page shouldn't be accessible after loging in
 const express = require('express');
 // const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
