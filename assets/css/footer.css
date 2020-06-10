@@ -1,0 +1,16 @@
+footer {
+  display: inline-flex;
+  width: 100%;
+  background-color: grey;
+  color: white;
+  position: fixed;
+  bottom: 0;
+  padding: 2%; }
+
+a {
+  color: white;
+  text-decoration: none; }
+
+ul {
+  margin: 0;
+  list-style: none; }
