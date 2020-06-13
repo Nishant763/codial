@@ -6,6 +6,7 @@ body{
     display: flex;
     flex-direction: column;
     scroll-behavior: smooth;
+    
 }
 
 #post{
@@ -16,7 +17,7 @@ body{
     width: 30%;
     height: auto;
     border: 1px solid black;
-    
+    z-index: 0;
     background-color: seashell;
     padding: 2%;
     #user_name{

@@ -11,6 +11,7 @@
   width: 30%;
   height: auto;
   border: 1px solid black;
+  z-index: 0;
   background-color: seashell;
   padding: 2%; }
   #post #user_name {
