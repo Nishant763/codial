@@ -1,11 +1,23 @@
+<link rel="stylesheet" href="/css/home.css">
+<h1>Welcome to the home page!!!</h1>
 
-    <link rel="stylesheet" href="/css/home.css">
-    <h1>Welcome to the home page!!!</h1>
-    
-    <section id="feed-posts">
-        <h4>Posts</h4>
-        <form action="/posts/create" method="post" id="new-form-post">
-            <textarea name="content"  cols="30" rows="3" placeholder="Type here..."></textarea>
-            <input type="submit" value="Post">
-        </form>
-    </section>
+<section id="feed-posts">
+    <h4>Posts</h4>
+    <form action="/posts/create" method="post" id="new-form-post">
+        <textarea name="content" cols="30" rows="3" placeholder="Type here..."></textarea>
+        <input type="submit" value="Post">
+    </form>
+</section>
+<section id="posts-wall">
+    <% for(post of Posts){ %>
+    <div id="post">
+        <div id="user_name"><%= post.user.username%></div>
+        <div id="post-content">
+            <%= post.content %>
+        </div>
+        <div id="created-at">
+            <small><%= post.createdAt %></small>
+        </div>
+    </div>
+    <%}%>
+</section>

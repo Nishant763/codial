@@ -1,3 +1,28 @@
 body{
-    background-color: aqua;
+    // background-color: aqua;
+}
+
+#posts-wall{
+    display: flex;
+    flex-direction: column;
+    scroll-behavior: smooth;
+}
+
+#post{
+    font-family: cursive;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 30%;
+    height: auto;
+    border: 1px solid black;
+    
+    background-color: seashell;
+    padding: 2%;
+    #user_name{
+        margin-bottom: 2%;
+    }
+    #post-content{
+        margin-bottom: 2%;
+    }
 }
