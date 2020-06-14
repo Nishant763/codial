@@ -10,16 +10,31 @@
 </section>
 <%}%>
 
-<section id="posts-wall">
+<section id="posts-wall" >
+    <ul>
     <% for(post of Posts){ %>
-    <div id="post">
-        <div id="user_name"><%= post.user.username%></div>
-        <div id="post-content">
-            <%= post.content %>
+    <li>
+        <div id="post">
+            <div id="user_name"><%= post.user.username%></div>
+            <div id="post-content">
+                <%= post.content %>
+            </div>
+            <div id="created-at">
+                <small><%= post.createdAt %></small>
+            </div>
         </div>
-        <div id="created-at">
-            <small><%= post.createdAt %></small>
-        </div>
-    </div>
+    </li>
+    <% if(locals.user) {%> 
+    <h4>Comment</h4>
+    <form action="/comments/create" method="post" id="new-form-post">
+        <input type="text" name="content" placeholder="Add comment...."></input>
+        
+        <input type="hidden"  value="<%= post._id%>" name="post">
+        <input type="submit" value="Post Comment">
+    </form>
+    <hr>
     <%}%>
+    <%}%>
+        
+    </ul>
 </section>

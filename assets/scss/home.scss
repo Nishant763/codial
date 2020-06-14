@@ -6,7 +6,7 @@ body{
     display: flex;
     flex-direction: column;
     scroll-behavior: smooth;
-    
+    align-items: stretch;
 }
 
 #post{
@@ -19,11 +19,18 @@ body{
     border: 1px solid black;
     z-index: 0;
     background-color: seashell;
-    padding: 2%;
+    padding: 1%;
     #user_name{
         margin-bottom: 2%;
     }
     #post-content{
         margin-bottom: 2%;
     }
+}
+form{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-evenly;
+    height: 20%;
 }

@@ -1,7 +1,8 @@
 #posts-wall {
   display: flex;
   flex-direction: column;
-  scroll-behavior: smooth; }
+  scroll-behavior: smooth;
+  align-items: stretch; }
 
 #post {
   font-family: cursive;
@@ -13,8 +14,15 @@
   border: 1px solid black;
   z-index: 0;
   background-color: seashell;
-  padding: 2%; }
+  padding: 1%; }
   #post #user_name {
     margin-bottom: 2%; }
   #post #post-content {
     margin-bottom: 2%; }
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  height: 20%; }
