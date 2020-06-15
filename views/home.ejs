@@ -22,6 +22,11 @@
         <div id="created-at">
             <small><%= post.createdAt %></small>
         </div>
+        <% if(locals.user && locals.user.id == post.user.id) {%> 
+        <div id="delete-post">
+            <a href="/posts/destroy/<%= post.id%>" style="color: blue;">Delete Post</a>
+        </div>
+        <%}%>
     </div>
 </li>
 <div class="post-comments">
@@ -42,6 +47,12 @@
                     <small>
                         <%= comment.user.username %>
                     </small>
+                    <br>
+                    <% if(locals.user && locals.user.id == comment.user.id) {%> 
+                    <small>
+                        <a href="/comments/destroy/<%= comment.post._id %>/<%= comment.id%>" style="color: blue;">Delete Comment</a>
+                    </small>
+                    <%}%>
                 </p>
             <%}%>
         </ul>
