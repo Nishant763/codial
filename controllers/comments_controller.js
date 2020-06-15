@@ -36,7 +36,7 @@ module.exports.destroy = function(req,res){
 
                
                 post.comments.splice(post.comments.findIndex(function(i){
-                    console.log(i);
+                    
                     return i == req.params.idcomment;
                 }),1);
                 console.log(post.comments);
