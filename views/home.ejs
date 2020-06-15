@@ -13,22 +13,7 @@
 <section id="posts-wall" >
     <ul>
     <% for(post of Posts){ %>
-<li>
-    <div id="post">
-        <div id="user_name"><%= post.user.username%></div>
-        <div id="post-content">
-            <%= post.content %>
-        </div>
-        <div id="created-at">
-            <small><%= post.createdAt %></small>
-        </div>
-        <% if(locals.user && locals.user.id == post.user.id) {%> 
-        <div id="delete-post">
-            <a href="/posts/destroy/<%= post.id%>" style="color: blue;">Delete Post</a>
-        </div>
-        <%}%>
-    </div>
-</li>
+    <%- include('_post') -%>
 <div class="post-comments">
     <% if(locals.user) {%>
     <h4>Comment</h4>
@@ -41,19 +26,7 @@
     <div class="post-comments-list">
         <ul id="post-comments-<%= post._id%>">
             <% for(comment of post.comments){%> 
-                <p>
-                    <%= comment.content %>
-                    <br>
-                    <small>
-                        <%= comment.user.username %>
-                    </small>
-                    <br>
-                    <% if(locals.user && locals.user.id == comment.user.id) {%> 
-                    <small>
-                        <a href="/comments/destroy/<%= comment.post._id %>/<%= comment.id%>" style="color: blue;">Delete Comment</a>
-                    </small>
-                    <%}%>
-                </p>
+                <%- include('_comment') -%>
             <%}%>
         </ul>
     </div>
