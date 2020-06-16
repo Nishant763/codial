@@ -37,3 +37,13 @@
 
 </ul>
 </section>
+
+<section id="user-friends">
+    <h4>Friends</h4>
+    <% for(u of all_users){%> 
+        <p>
+            <a href="/users/profile/<%= u.id %>" style="color:blue;" ><%= u.username %></a>
+        </p>
+    
+    <%}%>
+</section>

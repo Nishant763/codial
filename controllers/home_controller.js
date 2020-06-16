@@ -1,11 +1,11 @@
-const post = require('../models/post');
-const user = require('../models/user');
+const Post = require('../models/post');
+const User = require('../models/user');
 
 module.exports.home = function(req, res){
     
        
 
-        post.find({})
+        Post.find({})
         .populate('user')
         .populate({
             path:'comments',
@@ -16,10 +16,17 @@ module.exports.home = function(req, res){
         .exec(function(err,posts){
             if(err){console.log("Error"); return;}
             
-            return res.render('home',{
-                Posts: posts,
-                title: "Home"
-            })
+            User.find({}, function(err,users){
+
+                return res.render('home',{
+                    Posts: posts,
+                    title: "Home",
+                    all_users: users
+                })
+
+            });
+            
+            
         
         })
 } 

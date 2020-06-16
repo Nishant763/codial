@@ -1,10 +1,26 @@
-const user = require('../models/user');
+const User = require('../models/user');
 
 //Render the profile page
 module.exports.profile = function (req, res) {
-    return res.render('user_profile', {
-        title: 'User Profile'
+    User.findById(req.params.id, function(err,user){
+        return res.render('user_profile', {
+            title: 'User Profile',
+            profile_user: user
+        });
+
     })
+    
+}
+
+module.exports.update = function(req,res){
+    console.log(req.body);
+    if(req.user.id == req.params.id){
+        User.findByIdAndUpdate(req.params.id,{username: req.body.name,email: req.body.email},function(err,user){
+            return res.redirect('back');
+        })
+    } else{
+        return res.status(401).send("UnAuthorized...Hmnnn...");
+    }
 }
 
 //Render the log in page
@@ -38,10 +54,10 @@ module.exports.signup = function (req, res) {
 module.exports.create = function (req, res) {
     console.log(req.body);
     if (req.body.password == req.body.confirmpassword) {
-        user.findOne({ email: req.body.email }, function (err, doc) {
+        User.findOne({ email: req.body.email }, function (err, doc) {
             if (err) { console.log('error in finding user in signing up'); return; }
             if (!doc) {
-                user.create(req.body, function (err, user) {
+                User.create(req.body, function (err, user) {
 
                     if (err) { console.log('error in creating user while signing up'); return; }
                     return res.redirect('/users/log-in');
