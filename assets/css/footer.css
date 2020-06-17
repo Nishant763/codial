@@ -6,11 +6,9 @@ footer {
   position: relative;
   bottom: 0;
   padding: 2%; }
-
-a {
-  color: white;
-  text-decoration: none; }
-
-ul {
-  margin: 0;
-  list-style: none; }
+  footer a {
+    color: white;
+    text-decoration: none; }
+  footer ul {
+    margin: 0;
+    list-style: none; }
