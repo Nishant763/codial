@@ -34,3 +34,27 @@ form{
     justify-content: space-evenly;
     height: 20%;
 }
+
+#home-container{
+    display: flex;
+    #feed-posts{
+        width: 45%;
+        padding: 10px;
+    }
+    #user-friends{
+        width: 30%;
+        padding: 10px;
+        border-left: solid lightgrey 1px;
+        
+    }
+    #posts-wall{
+        margin-top: 2%;
+        margin-right: 10%;
+        
+        padding: 10px;
+        #post{
+            width: 100%;
+            
+        }
+    }
+}

@@ -26,3 +26,19 @@ form {
   align-items: flex-start;
   justify-content: space-evenly;
   height: 20%; }
+
+#home-container {
+  display: flex; }
+  #home-container #feed-posts {
+    width: 45%;
+    padding: 10px; }
+  #home-container #user-friends {
+    width: 30%;
+    padding: 10px;
+    border-left: solid lightgrey 1px; }
+  #home-container #posts-wall {
+    margin-top: 2%;
+    margin-right: 10%;
+    padding: 10px; }
+    #home-container #posts-wall #post {
+      width: 100%; }
