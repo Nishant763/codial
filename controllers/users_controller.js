@@ -41,7 +41,7 @@ module.exports.login = function (req, res) {
 
 //post controller for log in
 module.exports.create_session = function (req, res) {
-    // To do later
+    req.flash('success','Logged In Successfully!');
     return res.redirect('/');
 }
 
@@ -81,7 +81,7 @@ module.exports.create = async function (req, res) {
 
 module.exports.destroySession = function (req, res) {
     req.logout();
-
+    req.flash('success','You have logged out!');
     return res.redirect('/');
 
 }
