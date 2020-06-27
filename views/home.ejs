@@ -4,7 +4,7 @@
     <% if(locals.user){%>
     <section id="feed-posts">
         <h4>Posts</h4>
-        <form action="/posts/create" method="post" id="new-form-post">
+        <form action="/posts/create" method="post" id="new-post-form">
             <textarea name="content" cols="30" rows="3" placeholder="Type here..." required></textarea>
             <input type="submit" value="Post">
         </form>
@@ -14,27 +14,11 @@
         <section id="posts-wall" >
             <ul>
             <% for(post of Posts){ %>
-    <%- include('_post') -%>
-    <div class="post-comments">
-        <% if(locals.user) {%>
-        <h4>Comment</h4>
-        <form action="/comments/create" method="post" id="new-form-post">
-            <input type="text" name="content" placeholder="Add comment...." required></input>
-
-            <input type="hidden" value="<%= post._id%>" name="post">
-            <input type="submit" value="Post Comment">
-        </form>
-        <div class="post-comments-list">
-            <ul id="post-comments-<%= post._id%>">
-                <% for(comment of post.comments){%>
-                <%- include('_comment') -%>
-                <%}%>
-                </ul>
-            </div>
-        </div>
+            <%- include('_post') -%>
+    
         <hr>
         <%}%>
-                <%}%>
+                
         
         </ul>
         </section>
@@ -49,3 +33,4 @@
                 <%}%>
         </section>
 </div>
+<script src="/js/home_posts.js"></script>
