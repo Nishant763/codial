@@ -13,14 +13,11 @@
         
         <section id="posts-wall" >
             <ul>
-            <% for(post of Posts){ %>
-            <%- include('_post') -%>
-    
-        <hr>
-        <%}%>
-                
-        
-        </ul>
+                <% for(post of Posts){ %>
+                <%- include('_post') -%>
+                <hr>
+                <%}%>
+            </ul>
         </section>
         
         <section id="user-friends">
