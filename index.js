@@ -1,5 +1,6 @@
 //Divided the project into routes,controllers,models,config so that it is easily scalable.
 //Done: store the session-cookie using MongoStore,log-in page shouldn't be accessible after loging in
+//To Do: 1. make the website more beautiful  3.add file field to every post and submit it via ajax 
 const express = require('express');
 // const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');

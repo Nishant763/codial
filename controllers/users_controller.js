@@ -27,20 +27,25 @@ module.exports.update = async function (req, res) {
                 user.name = req.body.name;
                 user.email = req.body.email;
 
-                if(req.file){
+                if(req.file && req.file.mimetype=="image/jpeg"){
                     //this is just saving the path of the uploaded file into the avatar field in the user
                     if(user.avatar){
                         if(fs.existsSync(path.join(__dirname,'..',user.avatar)))
                         fs.unlinkSync(path.join(__dirname,'..',user.avatar));
                         
                     }
-                    
+                    console.log(req.file);
+
                     user.avatar = User.avatarPath + '/' + req.file.filename;
+                    user.save();
+                    req.flash('success','Updated Your Profile!!');
                     
                 }
+                else{
+                    req.flash('error','File invalid...');
+                }
                 
-                user.save();
-                req.flash('success','Updated Your Profile!!');
+                
                 return res.redirect('back');
 
                 
