@@ -79,7 +79,8 @@ module.exports.create_session = function (req, res) {
     // console.log(req);
     //req.flash('success','Logged In Successfully!');
     //return res.redirect('/');  
-    return res.render( "home");  // go chrome 
+    // console.log(res,req);
+    return res.redirect('/');  // go chrome 
 }
 
 //Render the sign up page
@@ -113,7 +114,7 @@ module.exports.create = async function (req, res) {
         }
         else{
             req.flash('error','Passwords do not match!!!');
-            return res.redirect("back");
+            return res.redirect('back');
         }
     } catch (err) {
         req.flash('error',err);

@@ -29,10 +29,10 @@ passport.use(new GoogleStrategy({
                     username: profile.displayName,
                     email: profile.emails[0].value,
                     password: crypto.randomBytes(20).toString('hex')
-                }, function(err,user){
+                }, function(err,user1){
                     if(err){console.log("Error in creating user google-strategy-passport",err); return;}
 
-                    return done(null,user);
+                    return done(null,user1);
                 })
             }
         })
