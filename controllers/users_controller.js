@@ -66,7 +66,7 @@ module.exports.update = async function (req, res) {
 module.exports.login = function (req, res) {
     if (req.isAuthenticated()) {
         req.flash('success','Already Logged In!!!');
-        return res.redirect('/users/profile');
+        return res.redirect('/users/profile');//there? open chats
     }
     
     return res.render('log_in', {
@@ -76,8 +76,10 @@ module.exports.login = function (req, res) {
 
 //post controller for log in
 module.exports.create_session = function (req, res) {
-    req.flash('success','Logged In Successfully!');
-    return res.redirect('/');
+    // console.log(req);
+    //req.flash('success','Logged In Successfully!');
+    //return res.redirect('/');  
+    return res.render( "home");  // go chrome 
 }
 
 //Render the sign up page
@@ -86,7 +88,7 @@ module.exports.signup = function (req, res) {
         req.flash('success','Already Logged In!!!');
         return res.redirect('/users/profile');
     }
-    
+    // tgro chrome
     return res.render('sign_up', {
         title: 'Codial || Sign Up'
     })
