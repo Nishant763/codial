@@ -10,7 +10,8 @@ let opts = {
 };
 
 passport.use(new JWTStrategy(opts,function(jwtPayload,done){
-    User.findById(jwtPayload._id, function(err,user){
+    
+    User.findById(jwtPayload.id, function(err,user){
         if(err){console.log("Error:",err);return;}
 //check from Auth Header Bearer function () is missing
         if(user){
