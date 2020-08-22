@@ -1,0 +1,7 @@
+<div id="<%= comment.id %>">
+    <div><%= comment.content%></div>
+    <span><%= comment.user.username%></span>
+    <div>
+        <a href="/comments/destroy/<%= post._id%>/<%= comment.id%>">Delete Comment</a>
+    </div>
+</div>

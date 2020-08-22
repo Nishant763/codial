@@ -1,6 +1,6 @@
 const comments = require('../models/comment');
 const Post = require('../models/post');
-
+const commentsMailer = require('../mailers/comments_mailer');
 module.exports.create = async function (req, res) {
 
     
@@ -17,6 +17,9 @@ module.exports.create = async function (req, res) {
 
             post.comments.push(comment);
             post.save();
+            comment = await comment.populate('user','username email').execPopulate();
+            comment.save();
+            commentsMailer.newComment(comment);
             req.flash('success','Comment created successfully!!!');
             return res.redirect('back');
         }
@@ -64,7 +67,7 @@ module.exports.create = async function (req, res) {
 module.exports.destroy = async function (req, res) {
     try {
         let comment = await comments.findById(req.params.idcomment);
-
+        
         if (comment.user == req.user.id) {
 
             let postId = comment.post;
@@ -72,6 +75,7 @@ module.exports.destroy = async function (req, res) {
             comment.remove();
 
             let post = await Post.findByIdAndUpdate(postId, { $pull: { comments: req.params.idcomment } });
+            post.save();
             req.flash('success','Comment deleted successfully!!!');
             return res.redirect('back');
         }

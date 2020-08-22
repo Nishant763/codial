@@ -77,7 +77,7 @@ module.exports.login = function (req, res) {
 //post controller for log in
 module.exports.create_session = function (req, res) {
     // console.log(req);
-    //req.flash('success','Logged In Successfully!');
+    req.flash('success','Logged In Successfully!');
     //return res.redirect('/');  
     // console.log(res,req);
     return res.redirect('/');  // go chrome 
