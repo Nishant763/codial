@@ -10,8 +10,8 @@ let transporter = nodemailer.createTransport({
     port:587,
     secure:false,
     auth: {
-        user:'bhatianishant763@gmail.com',
-        pass:'hdfc@3001'
+        user:'atest18521@gmail.com',
+        pass:'test@1234'
     }
 });
 
@@ -22,7 +22,7 @@ let renderTemplate = (data,relativePath)=>{
         data,
         function(err,template){
             if(err){console.log("Error in rendering:  ",err);return;}
-
+            console.log(template);
             mailHTML = template;
         }
     )

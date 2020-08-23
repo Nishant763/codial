@@ -16,9 +16,11 @@ module.exports.create = async function (req, res) {
             });
 
             post.comments.push(comment);
-            post.save();
+            
             comment = await comment.populate('user','username email').execPopulate();
+            console.log("inside create in posts_controller:",comment);
             comment.save();
+            post.save();
             commentsMailer.newComment(comment);
             req.flash('success','Comment created successfully!!!');
             return res.redirect('back');
