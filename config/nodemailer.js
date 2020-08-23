@@ -22,10 +22,11 @@ let renderTemplate = (data,relativePath)=>{
         data,
         function(err,template){
             if(err){console.log("Error in rendering:  ",err);return;}
-            console.log(template);
+            
             mailHTML = template;
         }
     )
+    console.log(mailHTML);
     return mailHTML;
 }
 
