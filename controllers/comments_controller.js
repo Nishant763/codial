@@ -1,6 +1,8 @@
 const comments = require('../models/comment');
 const Post = require('../models/post');
 const commentsMailer = require('../mailers/comments_mailer');
+const queue = require('../config/kue');
+const commentsMailerWorker = require('../workers/comments_mailer_worker');
 module.exports.create = async function (req, res) {
 
     
@@ -21,7 +23,12 @@ module.exports.create = async function (req, res) {
             console.log("inside create in posts_controller:",comment);
             comment.save();
             post.save();
-            commentsMailer.newComment(comment);
+            // commentsMailer.newComment(comment);
+            let job = queue.create('emails',comment).save(function(err){
+                if(err){console.log("Error in pushing jobs to the emails queue",err);return;}
+
+                console.log("comments_mailer_job: ",job.id);                
+            });
             req.flash('success','Comment created successfully!!!');
             return res.redirect('back');
         }
