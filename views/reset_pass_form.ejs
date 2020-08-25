@@ -1,0 +1,22 @@
+<h2>Main Password Reset Form</h2>
+<% if(accesstoken.isValid){%>
+    
+    <div>
+            <form action="/password_reset/<%= accesstoken.accesstoken %>" method="post">
+            
+                    <label>New Password</label>
+                    <input type="password" name="pass1" placeholder="Enter your new password:" required>
+                    <label>New Password Again</label>
+                    <input type="password" name="pass2" placeholder="Enter your new password again:" required>
+                    <button type="submit">Submit</button>
+            
+            
+            </form>
+
+    </div>
+
+<% } else {%>
+
+    <b><blockquote>Your token has expired!!</blockquote></b>
+
+<% } %>    

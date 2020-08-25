@@ -1,7 +1,11 @@
 const User = require('../models/user');
+const resetPassModel = require('../models/reset_pass_token');
+const crypto = require('crypto');
 const fs = require('fs');
 const path = require('path');
 const pathExists = require('path-exists');
+const resetPasswordMailer = require('../mailers/reset_password_mailer');
+const e = require('express');
 //Render the profile page
 module.exports.profile = async function (req, res) {
     try {
@@ -73,6 +77,82 @@ module.exports.login = function (req, res) {
         title: 'Codial || Log In'
     })
 }
+
+//render the reset password page
+module.exports.resetPassword = function(req,res){
+    return res.render('forget_pass');
+}
+
+//process the data from rest pass form and send an email to the user to reset pass
+module.exports.resetPasswordPost = async function(req,res){
+    // console.log(req.body);
+    try{
+        let user = await User.findOne({email:req.body.email});
+        if(user){
+            let reset_pass_token = await  resetPassModel.create({
+                user: user,
+                accesstoken: crypto.randomBytes(20).toString('hex')        
+             });
+             
+            reset_pass_token = await reset_pass_token.populate('user'); 
+            //send mail to the user containing the pass reset link ('/reset_pass/?accesstoken=____')
+            resetPasswordMailer.newPass(reset_pass_token); 
+            req.flash('success','Please Check your email!');
+        
+            return res.redirect('/users/log-in');
+        }
+        else{
+            req.flash('error','User not found!!');
+            return res.redirect('back');
+        }
+    }
+    catch(err){
+        console.log("Error in resetPassPost Method: ",err);
+        return;
+    }
+    
+}
+//renders the form page to reset password
+
+module.exports.resetpassFormGet = async function(req,res){
+    try{
+    let accesstoken = await resetPassModel.findOne({accesstoken:req.params.accesstoken});
+    
+    return res.render('reset_pass_form',{accesstoken:accesstoken});    
+    }
+    catch(err){
+        console.log("Error in resetPassFormGet: ",err);
+        return;
+    }
+}
+
+//finally processing the form data and changing password of the user
+module.exports.resetpassFormPost = async function(req,res){
+    try{
+        if(req.body.pass1 == req.body.pass2){
+            let accesstoken = await (await resetPassModel.findOne({accesstoken:req.params.accesstoken})).execPopulate('user');
+            accesstoken.isValid = false;
+            
+            
+            await accesstoken.save();
+            console.log(accesstoken);
+            let user = await User.findOne({email:accesstoken.user.email});
+            user.password = req.body.pass1;
+            await user.save();
+
+            req.flash('success','Congrats! Your password has been reset!!');
+            return res.redirect('/users/log-in');
+        }
+        else{
+            req.flash("error","Passwords not match!!");
+            return res.redirect('back');
+        }
+    }
+    catch(err){
+        console.log("Error in resetpassFormPost : ",err);
+        return;
+    }
+} 
 
 //post controller for log in
 module.exports.create_session = function (req, res) {

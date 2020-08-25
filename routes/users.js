@@ -29,4 +29,7 @@ router.get('/auth/google',passport.authenticate('google',{scope: ['profile','ema
 
 router.get('/auth/google/callback',passport.authenticate('google',{failureRedirect: '/users/log-in'}),usersController.create_session);
 
+router.get('/reset-password',usersController.resetPassword);
+router.post('/reset-password-post',usersController.resetPasswordPost);
+
 module.exports = router;
