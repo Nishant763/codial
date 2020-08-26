@@ -10,8 +10,15 @@
         <% if(locals.user && locals.user.id == post.user.id) {%> 
         <div id="delete-post">
             <a class="delete-post-button" href="/posts/destroy/<%= post.id%>">Delete Post</a>
+            
         </div>
         <%}%>
+        <div id="like-post-<%= post._id%>">
+        <i class="fa fa-heart"></i>
+        <span id="like-counter-post-<%= post._id%>">2</span>
+        </div>
+        
+        
     </div>
 </li>
 <div class="post-comments">
@@ -34,3 +41,4 @@
 </div>
 
 
+<script src="/js/post.js"></script>

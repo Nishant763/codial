@@ -1,6 +1,6 @@
 const Post = require('../models/post');
 const Comment = require('../models/comment');
-
+const Like = require('../models/like');
 module.exports.create = async function (req,res) {
     try{
         if(req.isAuthenticated()){
@@ -31,8 +31,12 @@ module.exports.create = async function (req,res) {
 
 module.exports.destroy = async function(req,res){
    try{ 
-        let post = await Post.findById(req.params.id);
+        let post = await Post.findById(req.params.id).populate('likes');
         if(post.user == req.user.id){
+            for(like of post.likes){
+                let likeR = await Like.findById(like._id);
+                likeR.remove();
+            }
             post.remove();
 
             let comments =  await Comment.deleteMany({post:req.params.id});

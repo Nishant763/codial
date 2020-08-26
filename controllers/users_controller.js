@@ -5,7 +5,7 @@ const fs = require('fs');
 const path = require('path');
 const pathExists = require('path-exists');
 const resetPasswordMailer = require('../mailers/reset_password_mailer');
-const e = require('express');
+
 //Render the profile page
 module.exports.profile = async function (req, res) {
     try {
@@ -18,7 +18,7 @@ module.exports.profile = async function (req, res) {
         console.log("Error:", err);
         return;
     }
-
+    
 }
 
 module.exports.update = async function (req, res) {

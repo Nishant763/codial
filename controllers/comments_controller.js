@@ -3,6 +3,7 @@ const Post = require('../models/post');
 const commentsMailer = require('../mailers/comments_mailer');
 const queue = require('../config/kue');
 const commentsMailerWorker = require('../workers/comments_mailer_worker');
+const Like = require('../models/like');
 module.exports.create = async function (req, res) {
 
     
@@ -75,12 +76,15 @@ module.exports.create = async function (req, res) {
 //Another way of writing destroy function(Verifying whether the comment exists or not and deleting the comment)
 module.exports.destroy = async function (req, res) {
     try {
-        let comment = await comments.findById(req.params.idcomment);
+        let comment = await comments.findById(req.params.idcomment).populate('likes');
         
         if (comment.user == req.user.id) {
 
             let postId = comment.post;
-
+            for(like of comment.likes){
+                let likeR = await Like.findById(like._id);
+                likeR.remove();
+            }
             comment.remove();
 
             let post = await Post.findByIdAndUpdate(postId, { $pull: { comments: req.params.idcomment } });
