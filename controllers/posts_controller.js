@@ -33,10 +33,10 @@ module.exports.destroy = async function(req,res){
    try{ 
         let post = await Post.findById(req.params.id).populate('likes');
         if(post.user == req.user.id){
-            for(like of post.likes){
-                let likeR = await Like.findById(like._id);
-                likeR.remove();
-            }
+           
+            //Change:: delete the associated likes on the post and all its comments' likes too
+            await Like.deleteMany({likeable: post,onModel:'Post'});
+            await Like.deleteMany({_id: {$in: post.comments}});
             post.remove();
 
             let comments =  await Comment.deleteMany({post:req.params.id});

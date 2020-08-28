@@ -1,5 +1,6 @@
 
 
+
 {
     //method to submit the form data for new post using AJAX
     let createPost = function(){
@@ -19,16 +20,22 @@
                    console.log("NP",newPost)
                    $('#posts-wall').prepend(newPost);
                    
-                   deletePost($('.delete-post-button'));
+                   deletePost($('.delete-post-button'),newPost);
+                   
+                   // call the create comment class
+                   new PostComments(data.data.post._id);
 
-                   // ye pata ni kya h 1st time aaya tha aap dekh lo mein baad me doubt raise karta hoon aaj,then solve kar dena ok
+                   // CHANGE :: enable the functionality of the toggle like button on the new post
+                   new ToggleLike($(' .toggle-like-button',newPost);
+
+                   
                    new Noty({
-                    theme:'relax',
-                    text: 'post created',
-                    type:'success',
-                    layout:'topRight',
-                    timeout: 1500
-                }).show();
+                        theme:'relax',
+                        text: 'post created',
+                        type:'success',
+                        layout:'topRight',
+                        timeout: 1500
+                    }).show();
                    },
                 error: function(error){
                     console.log(error.responseText);
@@ -57,6 +64,13 @@
                 <div id="delete-post">
                     <a class="delete-post-button" href="/posts/destroy/${ post._id}>">Delete Post</a>
                 </div>
+                <div id="like-post-${post._id}>">
+                
+               <a class="toggle-like-button" data-likes="0" href="/likes/toggleLike/?id=${post._id}&type=Post">
+                    <i class="fa fa-heart"></i> 0
+              </a> 
+           
+        </div>
                 
             </div>
         </li>
@@ -89,13 +103,25 @@
         
     }
 
+    // loop over all the existing posts on the page (when the window loads for the first time) and call the delete post method on delete link of each, also add AJAX (using the class we've created) to the delete button of each
+    let convertPostsToAjax = function(){
+        $('#posts-list-container>ul>li').each(function(){
+            let self = $(this);
+            let deleteButton = $(' .delete-post-button', self);
+            deletePost(deleteButton);
 
+            // get the post's id by splitting the id attribute
+            let postId = self.prop('id').split("-")[1]
+            new PostComments(postId);
+        });
+    }
 
 
 
 
 
     createPost();
+    convertPostsToAjax();
 }
 
     

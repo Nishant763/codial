@@ -13,9 +13,15 @@
             
         </div>
         <%}%>
+        <!-- Change:: display the likes of the post if the user is not signed in else display the toogle link and count of likes -->
         <div id="like-post-<%= post._id%>">
-        <i class="fa fa-heart"></i>
-        <span id="like-counter-post-<%= post._id%>">2</span>
+            <% if(locals.user){ %>
+               <a class="toggle-like-button" data-likes="<%= post.likes.length%>" href="/likes/toggleLike/?id=<%=post._id%>&type=Post">
+                    <i class="fa fa-heart"></i> <%= post.likes.length%>
+              </a> 
+            <% } else{%>    
+            <i class="fa fa-heart"></i> <%= post.likes.length%>
+            <% } %>    
         </div>
         
         
@@ -41,4 +47,3 @@
 </div>
 
 
-<script src="/js/post.js"></script>

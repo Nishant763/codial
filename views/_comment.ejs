@@ -4,4 +4,14 @@
     <div>
         <a href="/comments/destroy/<%= post._id%>/<%= comment.id%>">Delete Comment</a>
     </div>
+    <!-- Change:: display the likes of the comment if the user is not signed in else display the toogle link and count of likes -->
+    <small>
+        <% if(locals.user){ %>
+            <a class="toggle-like-button" data-likes="<%= comment.likes.length%>" href="/likes/toggleLike/?id=<%=comment._id%>&type=Comment">
+                 <i class="fa fa-heart"></i> <%= comment.likes.length%>
+           </a> 
+         <% } else{%>    
+         <i class="fa fa-heart"></i> <%= comment.likes.length%>
+         <% } %>
+    </small>
 </div>
