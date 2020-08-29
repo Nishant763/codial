@@ -16,6 +16,18 @@
     <!-- else show only the profile info -->
     <p><%= profile_user.username%></p>
     <p><%= profile_user.email%></p>
+    
+    
+        <% if(isFriend){%>
+            <button type="submit" id="removeFriend" name="<%= profile_user.id%>" data-from="<%= user.id%>">Remove Friend</button>
+        <% } else {%>   
+            <button type="submit" id="addFriend" name="<%= profile_user.id%>" data-from="<%= user.id%>">Add as Friend</button>
+        <% } %>    
+        
+    
+    
 
 <%}%>
-<script src="/js/profile_preview.js"></script>
+<script async src="/js/profile_preview.js"></script>
+<script async src ="/js/add_friend.js"></script>
+<script async src ="/js/remove_friend.js"></script>

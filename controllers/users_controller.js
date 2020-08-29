@@ -5,20 +5,64 @@ const fs = require('fs');
 const path = require('path');
 const pathExists = require('path-exists');
 const resetPasswordMailer = require('../mailers/reset_password_mailer');
-
+const Friendship = require('../models/friendship');
 //Render the profile page
 module.exports.profile = async function (req, res) {
     try {
-        let user = await User.findById(req.params.id);
+        
+        let user = await User.findById(req.params.id).populate('friendships');
+
+        let arr = user.friendships;
+        
+        let friendshipO,isFriend=false;
+
+        for(eachId of arr){
+            friendshipO = await Friendship.findById(eachId);
+            if(friendshipO){
+                isFriend = true;
+                break;
+            }
+        }
+        
         return res.render('user_profile', {
             title: 'User Profile',
-            profile_user: user
+            profile_user: user,
+            isFriend:isFriend
         });
     } catch (err) {
         console.log("Error:", err);
         return;
     }
     
+}
+
+module.exports.make_friends = async function(req,res){
+    try{
+    let friendship = await Friendship.create({
+        from_user: req.body.from,
+        to_user:req.body.to
+    })
+    
+    await friendship.save();
+    let user1 = await User.findById(req.body.from);
+    let user2 = await User.findById(req.body.to);
+
+    user1.friendships.push(friendship);
+    user2.friendships.push(friendship);
+    await user1.save();
+    await user2.save();
+    console.log(req.body);
+    return res.json(200,{
+        message:'Success',
+        data:{
+            from_user:user1,
+            to_user:user2
+        }
+    })
+    }catch(err){
+        console.log("Error in make_friends: ",err);
+        return;
+    }      
 }
 
 module.exports.update = async function (req, res) {
