@@ -1,11 +1,12 @@
 const Post = require('../models/post');
 const User = require('../models/user');
-const { populate } = require('../models/post');
+const Friendship = require('../models/friendship');
 
 module.exports.home = async function(req, res){
     
        
        try{
+            
             let posts = await Post.find({})
             .sort('-createdAt')
                 .populate('user')
@@ -20,11 +21,21 @@ module.exports.home = async function(req, res){
                 }).populate('likes');
                 
                 let users = await User.find({});
-
+                
+                let auth_user = await User.findById(req.user._id).populate('friendships');
+                let friendshipIdArr = auth_user.friendships;
+                let friends = [];
+                for(let Id of friendshipIdArr){
+                    let friendshipobj = await Friendship.findById(Id);
+                    let friend = await User.findById(friendshipobj.to_user);
+                    friends.push(friend);
+                }
+                
                 return res.render('home',{
                     Posts: posts,
                     title: "Home",
-                    all_users: users
+                    all_users: users,
+                    friends:friends
                 })
         }catch(err){
             console.log("Error:",err);

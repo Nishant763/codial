@@ -22,18 +22,26 @@
         
         <section id="user-friends">
             <div>
-            <h4>Friends</h4>
-            <% for(u of all_users){%>
-                <p>
-                    <a href="/users/profile/<%= u.id %>" style="color:blue;"><%= u.username %></a>
-                </p>
-
-            <%}%>
+                <h4>Friends</h4>
+                <% for(friend of friends){%>
+                    <p>
+                        <a href="/users/profile/<%= friend.id %>"><%= friend.username %></a>
+                    </p>
+                <% } %>
             </div>
             <hr>
             <div>
                 <h4>Users</h4>
+                <% for(u of all_users){%>
+                    <p>
+                        <a href="/users/profile/<%= u.id %>" style="color:blue;"><%= u.username %></a>
+                    </p>
+
+                <%}%>
             </div>
+            
+            
+            
         </section>
 </div>
 <!-- Importing the script file for creating the comments -->

@@ -56,13 +56,40 @@ module.exports.make_friends = async function(req,res){
         message:'Success',
         data:{
             from_user:user1,
-            to_user:user2
+            to_user:user2,
+            // url: '/users/profile/'+user2.id
         }
     })
     }catch(err){
         console.log("Error in make_friends: ",err);
         return;
     }      
+}
+
+module.exports.remove_friends = async function(req,res){
+    try{
+            let user2 = await User.findById( req.body.to);
+            let user1 = await User.findById(req.body.from) ;
+            let friendshipO = await Friendship.findOne({ from_user:user1._id,to_user:user2._id });
+            
+            if(friendshipO){
+                user1.friendships.pull(friendshipO._id);
+                user2.friendships.pull(friendshipO._id);
+                await user1.save();
+                await user2.save();
+                await friendshipO.remove();
+            }
+            return res.json(200,{
+                message:'Success',
+                data:{
+                    from_user:user1,
+                    to_user:user2,
+                    // url: '/users/profile/'+user2.id
+                }
+            })
+    }catch(err){
+        console.log("Error in remove_friends: ",err);
+    }
 }
 
 module.exports.update = async function (req, res) {

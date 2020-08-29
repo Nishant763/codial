@@ -1,19 +1,21 @@
-$('#addFriend').click(function(e){
+$('#removeFriend').click(function(e){
     e.preventDefault();
-    isFriend = false;
+    isFriend = true;
     let to_user_id = this.name;
-    let from_user_id = $('#addFriend').attr('data-from');
+    let from_user_id = $('#removeFriend').attr('data-from');
     console.log(to_user_id," ",from_user_id);
     let data = {to:to_user_id,from: from_user_id};
     let myelR;
     $.ajax({
         type: "POST",
-        url: "/users/friends",
+        url: "/users/unfriends",
         data: data,
+        cache: false,
+        async: true,
         success: function (response) {
             console.log(response);
+             myelR = '<button type="submit" id="addFriend" name='+response.data.to_user._id+' data-from='+response.data.from_user._id+'>'+'Add Friend </button>';
             
-            myelR = '<button type="submit" id="removeFriend" name='+response.data.to_user._id+' data-from='+response.data.from_user._id+'>'+'Remove Friend</button>';
             
         }
         
@@ -23,5 +25,6 @@ $('#addFriend').click(function(e){
     });
     // $('#buttonContainer').clear();
     $('#buttonContainer').html(myelR);
+    
 })
 
