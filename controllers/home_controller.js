@@ -21,14 +21,17 @@ module.exports.home = async function(req, res){
                 }).populate('likes');
                 
                 let users = await User.find({});
+                let auth_user,friendshipIdArr,friends;
+                if(req.user){
+                    auth_user = await User.findById(req.user._id).populate('friendships');
+                     friendshipIdArr = auth_user.friendships;
+                     friends = [];
+                    for(let Id of friendshipIdArr){
+                        let friendshipobj = await Friendship.findById(Id);
+                        let friend = await User.findById(friendshipobj.to_user);
+                        friends.push(friend);
+                    }
                 
-                let auth_user = await User.findById(req.user._id).populate('friendships');
-                let friendshipIdArr = auth_user.friendships;
-                let friends = [];
-                for(let Id of friendshipIdArr){
-                    let friendshipobj = await Friendship.findById(Id);
-                    let friend = await User.findById(friendshipobj.to_user);
-                    friends.push(friend);
                 }
                 
                 return res.render('home',{

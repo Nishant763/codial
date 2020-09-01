@@ -1,4 +1,4 @@
-$('#removeFriend').click(function(e){
+$('#removeFriend').on('click',function(e){
     e.preventDefault();
     isFriend = true;
     let to_user_id = this.name;
@@ -25,6 +25,7 @@ $('#removeFriend').click(function(e){
     });
     // $('#buttonContainer').clear();
     $('#buttonContainer').html(myelR);
+    
     
 })
 

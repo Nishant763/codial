@@ -1,0 +1,35 @@
+div#container-chat {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  height: auto;
+  min-width: 20%;
+  background-color: whitesmoke;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly; }
+  div#container-chat ul#container-messages {
+    height: 100%;
+    width: 100%;
+    padding: 4%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-around; }
+    div#container-chat ul#container-messages li.message {
+      list-style: none;
+      position: relative;
+      width: fit-content;
+      padding: 5%;
+      margin-bottom: 2%; }
+    div#container-chat ul#container-messages #other-message {
+      align-self: flex-start;
+      background-color: greenyellow; }
+    div#container-chat ul#container-messages #user-message {
+      align-self: flex-end;
+      background-color: chartreuse; }
+  div#container-chat div#container-send-messages {
+    width: 100%; }
+    div#container-chat div#container-send-messages button#sendBtn {
+      color: white;
+      background-color: green; }

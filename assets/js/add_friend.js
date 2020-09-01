@@ -1,4 +1,4 @@
-$('#addFriend').click(function(e){
+$('#addFriend').on('click',function(e){
     e.preventDefault();
     isFriend = false;
     let to_user_id = this.name;
